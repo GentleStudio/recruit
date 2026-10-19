@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GentleStudio | 프리랜서 웹디자이너 채용 (Recruit)</title>
+    <style>
+        /* ==========================================
+           [1. 글로벌 프리미엄 디자인 시스템 변수]
+           ========================================== */
+        :root {
+            /* 젠틀스튜디오 모던 딥 다크 테마 */
+            --bg-primary: #09090b;
+            --bg-card: #18181b;
+            --border-subtle: rgba(255, 255, 255, 0.08);
+            --text-main: #f4f4f5;
+            --text-sub: #a1a1aa;
+            
+            /* 브랜드 엑센트 (화이트 & 실버 톤으로 세련되게 연출) */
+            --accent-brand: #ffffff;
+            --accent-highlight: #e4e4e7;
+            
+            /* 하이엔드 인터랙션을 위한 글로우 가이드 */
+            --glow-base: rgba(255, 255, 255, 0.05);
+            --glow-hover: rgba(255, 255, 255, 0.15);
+            --glow-featured: rgba(255, 255, 255, 0.25);
+            
+            /* 고급스러운 쉬머 그라디언트 정의 */
+            --shimmer-spec: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0) 100%);
+            
+            /* 타이포그래피 */
+            --font-premium: 'Pretendard', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        /* ==========================================
+           [2. 글로벌 리셋 및 타이포그래피]
+           ========================================== */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { 
+            font-family: var(--font-premium); 
+            color: var(--text-main); 
+            background-color: var(--bg-primary); 
+            line-height: 1.6; 
+            letter-spacing: -0.02em; 
+            overflow-x: hidden;
+        }
+        img { max-width: 100%; height: auto; display: block; }
+        ul { list-style: none; }
+
+        /* 글로벌 네비게이션 (투명 블러 처리) */
+        .navbar {
+            position: fixed; top: 0; left: 0; width: 100%;
+            padding: 20px 40px;
+            display: flex; justify-content: space-between; align-items: center;
+            background: rgba(9, 9, 11, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            z-index: 100;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+        .navbar .logo { height: 28px; }
+        .navbar .apply-btn {
+            padding: 10px 24px;
+            background-color: var(--accent-brand);
+            color: var(--bg-primary);
+            font-weight: 700;
+            font-size: 14px;
+            border-radius: 30px;
+            text-decoration: none;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .navbar .apply-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px var(--glow-hover);
+        }
+
+        /* 공통 컨테이너 규격 */
+        .container { 
+            max-width: 1280px; 
+            margin: 0 auto; 
+            padding: 120px 40px 40px 40px; 
+        }
+        .section-heading { 
+            font-size: 32px; 
+            font-weight: 800; 
+            margin-bottom: 16px; 
+            color: var(--accent-brand); 
+        }
+        .section-desc {
+            font-size: 16px;
+            color: var(--text-sub);
+            margin-bottom: 60px;
+            max-width: 600px;
+        }
+
+        /* ==========================================
+           [3. 프리미엄 인터랙션 코어 스펙 (카드 디자인)]
+           ========================================== */
+        
+        /* 기본 글로우 및 마우스 오버 시 입체적 심화 가속도 효과 */
+        .interactive-card {
+            position: relative;
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 20px;
+            padding: 40px;
+            cursor: pointer;
+            overflow: hidden;
+            box-shadow: 0 0 20px 0 var(--glow-base);
+            /* 부드러운 하이엔드 큐빅 베지에 곡선 적용 */
+            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), 
+                        box-shadow 0.4s cubic-bezier(0.25, 1, 0.5, 1), 
+                        border-color 0.4s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        /* 마우스 오버 시 테두리 투명도 변화 및 강력한 글로우 결합 */
+        .interactive-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 10px 35px 5px var(--glow-hover);
+        }
+
+        .card-badge {
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            color: var(--text-sub);
+            margin-bottom: 16px;
+            text-transform: uppercase;
+        }
+        .card-title {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            line-height: 1.4;
+            color: var(--text-main);
+        }
+        .card-text {
+            font-size: 15px;
+            color: var(--text-sub);
+            word-break: keep-all;
+        }
+
+        /* [핵심 배너 전용] 엄격히 절제된 우아한 쉬머(Shimmer) 애니메이션 */
+        .interactive-card.featured-shimmer {
+            background: linear-gradient(135deg, #1f1f22 0%, #09090b 100%);
+            border: 1px solid rgba(255,255,255,0.15);
+            box-shadow: 0 0 25px 2px var(--glow-hover);
+        }
+        .interactive-card.featured-shimmer:hover {
+            box-shadow: 0 0 40px 8px var(--glow-featured);
+        }
+        .interactive-card.featured-shimmer::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -150%;
+            width: 150%; height: 100%;
+            background: var(--shimmer-spec);
+            transform: skewX(-20deg);
+            animation: premium-shimmer 4.0s infinite ease-in-out;
+            pointer-events: none;
+        }
+        @keyframes premium-shimmer {
+            0% { left: -150%; }
+            25% { left: 150%; }
+            100% { left: 150%; }
+        }
+
+        /* ==========================================
+           [4. 다채로운 구조적 가변 레이아웃 유형]
+           ========================================== */
+
+        /* 유형 B: 풀와이드 몰입형 (스토리텔링, 히어로 랜딩에 최적화) */
+        .layout-full-immersive {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+        }
+        .immersive-hero {
+            position: relative;
+            min-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 120px 20px;
+            background: url('https://images.unsplash.com/photo-1541462608143-67571c6738dd?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+        }
+        .immersive-hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(to bottom, rgba(9,9,11,0.4) 0%, rgba(9,9,11,1) 100%);
+            z-index: 1;
+        }
+        .hero-content-wrapper {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+        }
+        .hero-logo {
+            margin: 0 auto 40px auto;
+            height: 48px;
+        }
+        .hero-title {
+            font-size: 52px;
+            font-weight: 800;
+            line-height: 1.25;
+            margin-bottom: 24px;
+            letter-spacing: -0.03em;
+        }
+        .hero-desc {
+            font-size: 18px;
+            color: var(--text-sub);
+            word-break: keep-all;
+        }
+
+        /* 유형 A: 3단 매거진 그리드 구조 (데이터/업무 나열에 최적화) */
+        .layout-magazine-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-bottom: 80px;
+        }
+
+        /* 2단 그리드 (우대사항 등) */
+        .layout-grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+
+        /* ==========================================
+           [5. 스케일 모달(Modal) 확대 인터랙션]
+           ========================================== */
+        .modal-blur-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(12px); /* 고급스러운 뒷배경 흐림 처리 */
+            -webkit-backdrop-filter: blur(12px);
+            display: flex; justify-content: center; align-items: center;
+            z-index: 1000; opacity: 0; pointer-events: none;
+            transition: opacity 0.4s ease;
+        }
+        .modal-blur-overlay.active { opacity: 1; pointer-events: auto; }
+        
+        .modal-scale-content {
+            background-color: #111113;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 56px;
+            border-radius: 28px;
+            max-width: 640px; width: 90%;
+            transform: scale(0.75); /* 축소된 상태에서 팝업 대기 */
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); /* 입체감 있게 튕기는 모션 */
+            position: relative;
+        }
+        .modal-blur-overlay.active .modal-scale-content { transform: scale(1); }
+        
+        .modal-close-btn {
+            position: absolute; top: 24px; right: 24px;
+            background: none; border: none;
+            color: var(--text-sub); font-size: 28px;
+            cursor: pointer; transition: color 0.2s;
+        }
+        .modal-close-btn:hover { color: var(--text-main); }
+        
+        .modal-body ul { margin-top: 24px; margin-left: 20px; color: var(--text-sub); }
+        .modal-body li { margin-bottom: 12px; line-height: 1.6; list-style-type: disc; }
+
+        /* ==========================================
+           [6. 스마트 반응형 중단점 규격]
+           ========================================== */
+        @media (max-width: 1024px) {
+            .layout-magazine-grid { grid-template-columns: repeat(2, 1fr); }
+            .hero-title { font-size: 44px; }
+        }
+        @media (max-width: 768px) {
+            .navbar { padding: 16px 20px; }
+            .container { padding: 80px 20px 40px 20px; }
+            .layout-magazine-grid, .layout-grid-2 { grid-template-columns: 1fr; }
+            .hero-title { font-size: 32px; }
+            .interactive-card { padding: 32px; }
+            .modal-scale-content { padding: 40px 32px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- GNB 네비게이션 -->
+    <nav class="navbar">
+        <img src="https://rawcdn.githack.com/GentleStudio/web/69d08860bb56fea08ac0fe8916608165c2f4de89/assets/GentleStudio_W.png?raw=true" alt="GentleStudio Logo" class="logo">
+        <a href="mailto:hr@gentlestudio.com" class="apply-btn">지원하기</a>
+    </nav>
+
+    <!-- 메인 랜딩: 풀와이드 몰입형 (유형 B) -->
+    <div class="layout-full-immersive">
+        <header class="immersive-hero">
+            <div class="hero-content-wrapper">
+                <img src="https://rawcdn.githack.com/GentleStudio/web/69d08860bb56fea08ac0fe8916608165c2f4de89/assets/GentleStudio_W.png?raw=true" alt="GentleStudio" class="hero-logo">
+                <h1 class="hero-title">디테일로 증명하는 크리에이티브,<br>젠틀스튜디오와 함께할 디자이너를 찾습니다.</h1>
+                <p class="hero-desc">단순한 디자인을 넘어 브랜드의 철학과 데이터를 시각화하는 여정. 탁월한 미적 감각을 지닌 프리랜서 웹디자이너 분들의 많은 지원을 기다립니다.</p>
+            </div>
+        </header>
+    </div>
+
+    <!-- 담당 업무: 3단 매거진 그리드 (유형 A) -->
+    <section class="container" style="padding-bottom: 0;">
+        <h2 class="section-heading">What You'll Do</h2>
+        <p class="section-desc">젠틀스튜디오에서 당신은 정해진 틀을 깨고, 데이터와 크리에이티브가 결합된 최상의 비주얼을 설계하게 됩니다. (카드를 클릭하여 상세 확인)</p>
+        
+        <div class="layout-magazine-grid">
+            <div class="interactive-card" onclick="openSystemModal('퍼포먼스 마케팅 디자인', ['네이버, 메타, 구글 등 다양한 디지털 매체용 광고 소재 기획 및 제작', '경쟁사 분석 및 타겟 고객 인사이트를 기반으로 한 차별화된 시각물 도출', '성과 지표 및 고객 데이터 분석을 통한 A/B 테스트 및 디자인 반복 개선'])">
+                <span class="card-badge">01. Performance</span>
+                <h3 class="card-title">Data-Driven 크리에이티브<br>퍼포먼스 마케팅 디자인</h3>
+                <p class="card-text">데이터가 증명하는 아름다움. 다양한 플랫폼의 특성을 이해하고 타겟의 클릭을 유도하는 광고 소재를 기획합니다.</p>
+            </div>
+
+            <div class="interactive-card" onclick="openSystemModal('온·오프라인 콘텐츠 디자인', ['SNS 콘텐츠, 배너 광고, 영상 등 다양한 포맷의 마케팅 소재 디자인', '프로모션 캠페인의 시각적 브랜딩 전략 수립 및 가이드라인 제작', '브랜드의 가치와 핵심 메시지를 담은 스토리텔링 중심의 비주얼 콘텐츠 기획'])">
+                <span class="card-badge">02. Content & Branding</span>
+                <h3 class="card-title">브랜드 스토리를 담은<br>온·오프라인 콘텐츠 디자인</h3>
+                <p class="card-text">단편적인 이미지가 아닌 브랜드의 철학을 담습니다. SNS부터 프로모션까지 캠페인의 시각적 브랜딩을 책임집니다.</p>
+            </div>
+
+            <div class="interactive-card" onclick="openSystemModal('랜딩페이지/웹 디자인', ['기획 의도를 완벽히 구현하여 유저의 시선을 사로잡는 랜딩페이지 디자인', '사용자 경험(UX)을 고려한 직관적이고 미려한 웹/모바일 UI 설계', '이탈률을 낮추고 전환율을 극대화하는 전략적인 레이아웃 및 인터랙션 구성'])">
+                <span class="card-badge">03. UI/UX Web Design</span>
+                <h3 class="card-title">유저를 사로잡는<br>랜딩페이지 및 UI 디자인</h3>
+                <p class="card-text">고객의 여정이 완성되는 곳. 기획 의도를 완벽히 구현하고 최상의 사용자 경험을 제공하는 웹 인터페이스를 설계합니다.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 자격 요건 & 우대사항 -->
+    <section class="container" style="padding-top: 40px;">
+        <h2 class="section-heading">Who You Are</h2>
+        <p class="section-desc">디테일의 차이를 아는 분, 주도적으로 문제를 해결하며 디자인의 가치를 증명할 수 있는 분을 찾습니다.</p>
+        
+        <div class="layout-magazine-grid" style="margin-bottom: 40px;">
+            <!-- 핵심 요건: 유일하게 절제된 쉬머 애니메이션 적용 (가중치 1순위) -->
+            <div class="interactive-card featured-shimmer" onclick="openSystemModal('필수 자격 요건', ['관련 경력 3년 이상 또는 이에 준하는 압도적인 디자인 역량을 보유하신 분', 'Figma, Adobe Photoshop, Illustrator 등 그래픽 툴에 대한 탁월한 숙련도', '다양한 시각적 요소를 자유자재로 다루며 머릿속 아이디어를 완벽히 구현하시는 분', '맡은 일에 대한 책임감이 강하고 꼼꼼하게 결과물을 마감하시는 분'])">
+                <span class="card-badge" style="color: #ffffff;">Core Competency</span>
+                <h3 class="card-title">3년 이상의 경험과<br>탁월한 시각화 역량</h3>
+                <p class="card-text">Figma, Adobe 툴을 능숙하게 다루며, 아이디어를 완벽한 퀄리티의 시각적 결과물로 표현할 수 있는 분</p>
+            </div>
+
+            <div class="interactive-card" style="cursor: default;">
+                <span class="card-badge">Requirement 01</span>
+                <h3 class="card-title">기획부터 성과까지<br>풀사이클 실무 경험</h3>
+                <p class="card-text">광고 소재의 단순 제작을 넘어, 기획 단계부터 성과 측정까지의 전체 프로세스를 경험해 보신 분</p>
+            </div>
+
+            <div class="interactive-card" style="cursor: default;">
+                <span class="card-badge">Requirement 02</span>
+                <h3 class="card-title">문제 해결 능력 및<br>원활한 커뮤니케이션</h3>
+                <p class="card-text">다양한 프로젝트 경험을 바탕으로 유연하게 소통하며 주도적으로 문제를 해결해 나갈 수 있는 분</p>
+            </div>
+        </div>
+
+        <!-- 2단 그리드 우대사항 -->
+        <h3 class="section-heading" style="font-size: 24px; margin-top: 60px;">Plus Point (우대사항)</h3>
+        <div class="layout-grid-2">
+            <div class="interactive-card" style="cursor: default; padding: 32px;">
+                <h4 style="font-size: 18px; margin-bottom: 12px;">에이전시 & 브랜딩 경험</h4>
+                <p class="card-text">에이전시 또는 인하우스 마케팅팀 조직에서 프로젝트를 경험했거나, 브랜드 아이덴티티(BI/CI) 기획 및 디자인 경험이 있으신 분</p>
+            </div>
+            <div class="interactive-card" style="cursor: default; padding: 32px;">
+                <h4 style="font-size: 18px; margin-bottom: 12px;">모션 그래픽 & 데이터 리터러시</h4>
+                <p class="card-text">영상 컷편집 및 모션 그래픽 제작 역량을 갖추셨거나, 디지털 마케팅 광고의 성과 지표(ROAS 등)를 이해하고 디자인에 반영할 수 있는 분</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 스케일 모달 시스템 프레임 -->
+    <div class="modal-blur-overlay" id="sysModal" onclick="closeSystemModal()">
+        <div class="modal-scale-content" onclick="event.stopPropagation()">
+            <button class="modal-close-btn" onclick="closeSystemModal()">×</button>
+            <span class="card-badge" style="display: block; margin-bottom: 8px;">Detail Information</span>
+            <h2 id="sysModalTitle" style="font-size: 28px; margin-bottom: 8px; color: var(--accent-brand);"></h2>
+            <div id="sysModalBody" class="modal-body"></div>
+        </div>
+    </div>
+
+    <!-- 인터랙션 스크립트 -->
+    <script>
+        const modal = document.getElementById('sysModal');
+        const modalTitle = document.getElementById('sysModalTitle');
+        const modalBody = document.getElementById('sysModalBody');
+
+        // 하이엔드 모달 오픈 트리거
+        function openSystemModal(title, listItems) {
+            modalTitle.innerText = title;
+            
+            // 전달받은 배열을 ul > li 태그로 파싱
+            let listHtml = '<ul>';
+            listItems.forEach(item => {
+                listHtml += `<li>${item}</li>`;
+            });
+            listHtml += '</ul>';
+            
+            modalBody.innerHTML = listHtml;
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden'; // 배경 스크롤 락
+        }
+
+        // 모달 클로즈
+        function closeSystemModal() { 
+            modal.classList.remove('active'); 
+            document.body.style.overflow = 'auto';
+        }
+
+        // ESC 키 호환성 지원
+        document.addEventListener('keydown', function(e) {
+            if (e.key === "Escape" && modal.classList.contains('active')) {
+                closeSystemModal();
+            }
+        });
+    </script>
+</body>
+</html>

@@ -49,18 +49,18 @@
         img { max-width: 100%; height: auto; display: block; }
         ul { list-style: none; }
 
-        /* [핵심 수정 1] 상단 고정 메뉴바: 높이를 70px로 슬림하게 압축하고 로고 크기 유지 */
+        /* [수정 1] 슬림한 고정 메뉴바 규격 유지 */
         .navbar {
             position: fixed; 
             top: 0; 
             left: 0; 
             width: 100%;
-            height: 70px;
+            height: 74px;
             padding: 0 48px;
             display: flex; 
             justify-content: space-between; 
             align-items: center;
-            background: rgba(9, 9, 11, 0.82);
+            background: rgba(9, 9, 11, 0.85);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
             z-index: 100;
@@ -68,9 +68,9 @@
             box-sizing: border-box;
         }
 
-        /* 상단 좌측 로고: 70px 높이 바 안에서 꽉 차게 정렬되도록 최적화 */
+        /* [수정 2] 최상단 좌측 로고: 비율에 맞춰 시인성을 한 단계 더 확대 (60px) */
         .navbar .logo { 
-            height: 54px; 
+            height: 60px; 
             width: auto; 
             object-fit: contain;
             filter: drop-shadow(0 2px 10px rgba(0, 0, 0, 0.6));
@@ -81,7 +81,7 @@
         }
 
         .navbar .apply-btn {
-            padding: 9px 24px;
+            padding: 10px 26px;
             background-color: var(--accent-brand);
             color: var(--bg-primary);
             font-weight: 700;
@@ -206,8 +206,7 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            /* 슬림해진 메뉴바 높이에 맞춘 상단 여백 조절 */
-            padding: 130px 24px 100px 24px;
+            padding: 140px 24px 100px 24px;
             background: url('https://images.unsplash.com/photo-1541462608143-67571c6738dd?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
         }
         .immersive-hero::before {
@@ -223,57 +222,45 @@
             max-width: 960px;
         }
 
-        /* [핵심 수정 2] 메인 대표 로고: 래퍼에 쉬머 애니메이션 & 이미지에 펄스 네온 글로우 탑재 */
+        /* [수정 3] 사각형 쉬머 제거 및 순수 텍스트 알파 채널 기반 네온 펄스 글로우 적용 */
         .hero-logo-box {
-            position: relative;
             display: inline-block;
-            margin: 0 auto 44px auto;
-            border-radius: 20px;
-            overflow: hidden;
-            padding: 8px 16px;
+            margin: 0 auto 36px auto;
         }
         
-        /* 메인 로고 이미지: 입체적인 백색 펄스 글로우 아우라 */
+        /* 투명 배경 PNG의 글자 외곽선에만 정확하게 맺히는 광채 & 쉬머 브라이트니스 펄스 */
         .hero-logo {
             height: 270px; 
             width: auto;
             max-width: 95%;
             object-fit: contain;
             display: block;
-            filter: drop-shadow(0 0 25px rgba(255, 255, 255, 0.45)) drop-shadow(0 0 60px rgba(255, 255, 255, 0.25));
-            animation: logo-glow-pulse 3.2s infinite alternate ease-in-out;
+            animation: text-glow-shimmer 3.6s infinite ease-in-out;
             transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
         }
         .hero-logo-box:hover .hero-logo {
-            transform: scale(1.02);
+            transform: scale(1.03);
         }
 
-        /* 메인 로고 전용 쉬머(Shimmer) 광택 애니메이션 */
-        .hero-logo-box::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -150%;
-            width: 150%;
-            height: 100%;
-            background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.45) 50%, rgba(255,255,255,0) 100%);
-            transform: skewX(-25deg);
-            animation: hero-logo-shimmer 4.0s infinite ease-in-out;
-            pointer-events: none;
-        }
-
-        @keyframes hero-logo-shimmer {
-            0% { left: -150%; }
-            35% { left: 150%; }
-            100% { left: 150%; }
-        }
-
-        @keyframes logo-glow-pulse {
+        /* 투명 여백을 침범하지 않고 텍스트 픽셀에만 직접 작용하는 하이엔드 글로우/쉬머 키프레임 */
+        @keyframes text-glow-shimmer {
             0% {
-                filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.3)) drop-shadow(0 0 35px rgba(255, 255, 255, 0.15)) drop-shadow(0 8px 30px rgba(0,0,0,0.8));
+                filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.35))
+                        drop-shadow(0 0 30px rgba(255, 255, 255, 0.15))
+                        drop-shadow(0 10px 25px rgba(0, 0, 0, 0.8))
+                        brightness(0.95);
+            }
+            50% {
+                filter: drop-shadow(0 0 28px rgba(255, 255, 255, 0.85))
+                        drop-shadow(0 0 65px rgba(255, 255, 255, 0.45))
+                        drop-shadow(0 14px 35px rgba(0, 0, 0, 0.95))
+                        brightness(1.25);
             }
             100% {
-                filter: drop-shadow(0 0 35px rgba(255, 255, 255, 0.7)) drop-shadow(0 0 75px rgba(255, 255, 255, 0.35)) drop-shadow(0 12px 40px rgba(0,0,0,0.9));
+                filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.35))
+                        drop-shadow(0 0 30px rgba(255, 255, 255, 0.15))
+                        drop-shadow(0 10px 25px rgba(0, 0, 0, 0.8))
+                        brightness(0.95);
             }
         }
 
@@ -374,20 +361,20 @@
            [6. 스마트 반응형 중단점 규격]
            ========================================== */
         @media (max-width: 1024px) {
-            .navbar { padding: 0 30px; height: 64px; }
-            .navbar .logo { height: 46px; }
+            .navbar { padding: 0 30px; height: 68px; }
+            .navbar .logo { height: 52px; }
             .hero-logo { height: 210px; }
             .hero-title { font-size: 38px; }
             .layout-magazine-grid { grid-template-columns: repeat(2, 1fr); }
         }
         @media (max-width: 768px) {
-            .navbar { padding: 0 20px; height: 58px; }
-            .navbar .logo { height: 40px; }
-            .navbar .apply-btn { padding: 7px 18px; font-size: 13px; }
+            .navbar { padding: 0 20px; height: 60px; }
+            .navbar .logo { height: 44px; }
+            .navbar .apply-btn { padding: 8px 18px; font-size: 13px; }
             .container { padding: 80px 20px 40px 20px; }
-            .immersive-hero { padding: 110px 20px 80px 20px; }
+            .immersive-hero { padding: 120px 20px 80px 20px; }
             .hero-logo { height: 150px; }
-            .hero-logo-box { margin-bottom: 28px; }
+            .hero-logo-box { margin-bottom: 24px; }
             .hero-title { font-size: 28px; line-height: 1.4; }
             .layout-magazine-grid, .layout-grid-2 { grid-template-columns: 1fr; }
             .interactive-card { padding: 32px; }
@@ -397,7 +384,7 @@
 </head>
 <body>
 
-    <!-- GNB 네비게이션: 70px 슬림 높이 및 시인성 높은 로고 정렬 -->
+    <!-- GNB 네비게이션: 최상단 좌측 로고 확대 및 슬림 바 정렬 -->
     <nav class="navbar">
         <img src="https://rawcdn.githack.com/GentleStudio/web/69d08860bb56fea08ac0fe8916608165c2f4de89/assets/GentleStudio_W.png?raw=true" alt="GentleStudio Logo" class="logo">
         <a href="mailto:hr@gentlestudio.com" class="apply-btn">지원하기</a>
@@ -407,7 +394,7 @@
     <div class="layout-full-immersive">
         <header class="immersive-hero">
             <div class="hero-content-wrapper">
-                <!-- 대표 브랜드 심볼: 백색 펄스 글로우 및 대각선 쉬머 광택 탑재 -->
+                <!-- 대표 브랜드 심볼: 사각 박스 없는 순수 텍스트 픽셀 글로우 & 쉬머 펄스 -->
                 <div class="hero-logo-box">
                     <img src="https://rawcdn.githack.com/GentleStudio/web/69d08860bb56fea08ac0fe8916608165c2f4de89/assets/GentleStudio_W.png?raw=true" alt="GentleStudio" class="hero-logo">
                 </div>

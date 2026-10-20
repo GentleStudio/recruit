@@ -49,7 +49,7 @@
         img { max-width: 100%; height: auto; display: block; }
         ul { list-style: none; }
 
-        /* [수정 1] 슬림한 고정 메뉴바 규격 유지 */
+        /* 글로벌 네비게이션 (슬림한 74px 바 높이 및 로고 시인성 최적화) */
         .navbar {
             position: fixed; 
             top: 0; 
@@ -68,7 +68,6 @@
             box-sizing: border-box;
         }
 
-        /* [수정 2] 최상단 좌측 로고: 비율에 맞춰 시인성을 한 단계 더 확대 (60px) */
         .navbar .logo { 
             height: 60px; 
             width: auto; 
@@ -191,7 +190,7 @@
         }
 
         /* ==========================================
-           [4. 가변 레이아웃: 풀와이드 몰입형 히어로 & 그리드]
+           [4. 풀와이드 몰입형 히어로 & 메인 로고 네온 글로우]
            ========================================== */
         .layout-full-immersive {
             display: flex;
@@ -222,28 +221,37 @@
             max-width: 960px;
         }
 
-        /* [수정 3] 사각형 쉬머 제거 및 순수 텍스트 알파 채널 기반 네온 펄스 글로우 적용 */
         .hero-logo-box {
             display: inline-block;
             margin: 0 auto 36px auto;
+            cursor: pointer;
         }
         
-        /* 투명 배경 PNG의 글자 외곽선에만 정확하게 맺히는 광채 & 쉬머 브라이트니스 펄스 */
+        /* [핵심 수정 1] 대표 메인 로고: 순수 텍스트 픽셀 글로우 및 호버 시 초고광도 쨍한 네온 글로우 */
         .hero-logo {
             height: 270px; 
             width: auto;
             max-width: 95%;
             object-fit: contain;
             display: block;
-            animation: text-glow-shimmer 3.6s infinite ease-in-out;
-            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-        }
-        .hero-logo-box:hover .hero-logo {
-            transform: scale(1.03);
+            animation: text-glow-subtle 3.6s infinite ease-in-out;
+            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), filter 0.4s ease;
         }
 
-        /* 투명 여백을 침범하지 않고 텍스트 픽셀에만 직접 작용하는 하이엔드 글로우/쉬머 키프레임 */
-        @keyframes text-glow-shimmer {
+        /* 마우스 호버 시 쨍하고 강렬하게 터져 나오는 아이스 화이트/블루 아우라 글로우 */
+        .hero-logo-box:hover .hero-logo {
+            animation-play-state: paused;
+            transform: scale(1.03);
+            filter: drop-shadow(0 0 15px #ffffff)
+                    drop-shadow(0 0 32px rgba(255, 255, 255, 0.95))
+                    drop-shadow(0 0 65px rgba(186, 225, 255, 0.85))
+                    drop-shadow(0 0 110px rgba(147, 197, 253, 0.6))
+                    drop-shadow(0 14px 35px rgba(0, 0, 0, 0.95))
+                    brightness(1.3) !important;
+        }
+
+        /* 기본 평상시 은은한 아우라 키프레임 */
+        @keyframes text-glow-subtle {
             0% {
                 filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.35))
                         drop-shadow(0 0 30px rgba(255, 255, 255, 0.15))
@@ -251,10 +259,10 @@
                         brightness(0.95);
             }
             50% {
-                filter: drop-shadow(0 0 28px rgba(255, 255, 255, 0.85))
-                        drop-shadow(0 0 65px rgba(255, 255, 255, 0.45))
+                filter: drop-shadow(0 0 24px rgba(255, 255, 255, 0.7))
+                        drop-shadow(0 0 55px rgba(186, 225, 255, 0.35))
                         drop-shadow(0 14px 35px rgba(0, 0, 0, 0.95))
-                        brightness(1.25);
+                        brightness(1.15);
             }
             100% {
                 filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.35))
@@ -358,7 +366,91 @@
         }
 
         /* ==========================================
-           [6. 스마트 반응형 중단점 규격]
+           [6. 프리미엄 공식 푸터(Footer) 디자인 시스템]
+           ========================================== */
+        .site-footer {
+            border-top: 1px solid var(--border-subtle);
+            background-color: #050507;
+            padding: 64px 40px 48px 40px;
+            text-align: center;
+            margin-top: 60px;
+        }
+        .footer-content {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 22px;
+        }
+        .footer-logo {
+            height: 48px;
+            width: auto;
+            object-fit: contain;
+            opacity: 0.85;
+            transition: opacity 0.3s ease;
+        }
+        .footer-logo:hover {
+            opacity: 1;
+        }
+        .footer-actions {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-top: 4px;
+        }
+        /* 카카오톡 채널 1:1 상담 버튼 */
+        .footer-btn-kakao {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 11px 24px;
+            background-color: #fee500;
+            color: #191919;
+            font-size: 14px;
+            font-weight: 700;
+            border-radius: 30px;
+            text-decoration: none;
+            transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.3s ease;
+        }
+        .footer-btn-kakao:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(254, 229, 0, 0.35);
+        }
+        .footer-btn-email {
+            display: inline-flex;
+            align-items: center;
+            padding: 10px 22px;
+            background-color: #18181b;
+            color: #d4d4d8;
+            border: 1px solid var(--border-subtle);
+            font-size: 14px;
+            font-weight: 600;
+            border-radius: 30px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        .footer-btn-email:hover {
+            border-color: rgba(255, 255, 255, 0.25);
+            color: #ffffff;
+            transform: translateY(-2px);
+        }
+        .footer-desc {
+            font-size: 13px;
+            color: #71717a;
+            line-height: 1.6;
+        }
+        .footer-copyright {
+            font-size: 13px;
+            color: #52525b;
+            letter-spacing: 0.04em;
+            margin-top: 10px;
+        }
+
+        /* ==========================================
+           [7. 스마트 반응형 중단점 규격]
            ========================================== */
         @media (max-width: 1024px) {
             .navbar { padding: 0 30px; height: 68px; }
@@ -379,12 +471,13 @@
             .layout-magazine-grid, .layout-grid-2 { grid-template-columns: 1fr; }
             .interactive-card { padding: 32px; }
             .modal-scale-content { padding: 40px 24px; }
+            .site-footer { padding: 48px 20px 36px 20px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- GNB 네비게이션: 최상단 좌측 로고 확대 및 슬림 바 정렬 -->
+    <!-- GNB 네비게이션: 최상단 좌측 로고 및 슬림 바 정렬 -->
     <nav class="navbar">
         <img src="https://rawcdn.githack.com/GentleStudio/web/69d08860bb56fea08ac0fe8916608165c2f4de89/assets/GentleStudio_W.png?raw=true" alt="GentleStudio Logo" class="logo">
         <a href="mailto:hr@gentlestudio.com" class="apply-btn">지원하기</a>
@@ -394,7 +487,7 @@
     <div class="layout-full-immersive">
         <header class="immersive-hero">
             <div class="hero-content-wrapper">
-                <!-- 대표 브랜드 심볼: 사각 박스 없는 순수 텍스트 픽셀 글로우 & 쉬머 펄스 -->
+                <!-- 대표 브랜드 심볼: 순수 텍스트 픽셀 아우라 및 마우스오버 시 강렬한 네온 글로우 -->
                 <div class="hero-logo-box">
                     <img src="https://rawcdn.githack.com/GentleStudio/web/69d08860bb56fea08ac0fe8916608165c2f4de89/assets/GentleStudio_W.png?raw=true" alt="GentleStudio" class="hero-logo">
                 </div>
@@ -469,6 +562,33 @@
             </div>
         </div>
     </section>
+
+    <!-- [신규 추가] 프리미엄 공식 푸터 -->
+    <footer class="site-footer">
+        <div class="footer-content">
+            <img src="https://rawcdn.githack.com/GentleStudio/web/69d08860bb56fea08ac0fe8916608165c2f4de89/assets/GentleStudio_W.png?raw=true" alt="GentleStudio Logo" class="footer-logo">
+            
+            <div class="footer-actions">
+                <a href="http://pf.kakao.com/_RWaFn/chat" target="_blank" rel="noopener noreferrer" class="footer-btn-kakao">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="#191919">
+                        <path d="M12 3C6.477 3 2 6.477 2 10.765c0 2.76 1.854 5.176 4.67 6.545l-1.18 4.364a.5.5 0 0 0 .734.545l5.09-3.364c.224.015.45.023.686.023 5.523 0 10-3.477 10-7.765S17.523 3 12 3z"/>
+                    </svg>
+                    카카오톡 1:1 상담 문의
+                </a>
+                <a href="mailto:hr@gentlestudio.com" class="footer-btn-email">
+                    ✉ hr@gentlestudio.com
+                </a>
+            </div>
+
+            <p class="footer-desc">
+                비즈니스의 전환을 이끄는 통합 크리에이티브 파트너, 젠틀스튜디오
+            </p>
+
+            <p class="footer-copyright">
+                © 2017 GentleStudio. All rights reserved.
+            </p>
+        </div>
+    </footer>
 
     <!-- 스케일 모달 시스템 프레임 -->
     <div class="modal-blur-overlay" id="sysModal" onclick="closeSystemModal()">
